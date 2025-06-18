@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4167136087561473153}
   - component: {fileID: 6566227696288471471}
-  - component: {fileID: 4056606582827858716}
   m_Layer: 0
   m_Name: pre_Shockwave
   m_TagString: Untagged
@@ -88,15 +87,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4056606582827858716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041897516517486551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f5172464056d684b8d993c23b77e698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
