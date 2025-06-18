@@ -2,6 +2,7 @@
 
 ## :family: Team Member
 |이름|학교|역할|
+|---|---|---|
 |김두현|상명대학교|FrontEnd|
 |김진욱|광운대학교|FrontEnd|
 |박지홍|중앙대학교|GameDesign|
