@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
     private float horizontal;
     private Rigidbody2D rb;
-    private bool jumpState = true;
+    private bool isGrounded = true;
 
     private float speed = 5; // 이동속도
     private float jumpForce = 5; // 점프력
@@ -16,31 +16,33 @@ public class PlayerControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        player_move();
+        PlayerMove();
     }
 
 
-    void player_move() {
+    void PlayerMove() {
         if (rb != null) {
             horizontal = Input.GetAxis("Horizontal");
             transform.Translate(horizontal * speed * Time.deltaTime, 0, 0);
-            player_jump();
+            PlayerJump();
         }
     }
 
-    void player_jump() {
-        if (Input.GetKeyDown(KeyCode.LeftAlt) && jumpState) {
+    void PlayerJump() {
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && isGrounded) {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            jumpState = false;
+            isGrounded = false;
         }
     }
-
 
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ground") {
-            jumpState = true;
+            isGrounded = true;
         }
     }
+
+    
+
 
 }

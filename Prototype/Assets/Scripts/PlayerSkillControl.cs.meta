@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: d6c0658c2b5739e43b4e42665b55b5d4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pre_Shockwave: {fileID: 2041897516517486551, guid: fa0c6da7dcebd4143a7829715f7b712e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
