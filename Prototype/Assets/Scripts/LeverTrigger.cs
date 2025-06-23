@@ -35,11 +35,21 @@ public class LeverTrigger : MonoBehaviour
     }
 
     private void DoorOpen() {
-
+        foreach (GameObject door in targetObject) {
+            if (door != null) {
+                // Assuming the doors have a script to handle opening
+                door.GetComponent<Door>().Open();
+            }
+        }
     }
 
     private void DoorClose() {
-
+        foreach (GameObject door in targetObject) {
+            if (door != null) {
+                // Assuming the doors have a script to handle closing
+                door.GetComponent<Door>().Close();
+            }
+        }
     }
 
 }
