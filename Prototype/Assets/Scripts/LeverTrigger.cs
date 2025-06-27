@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
+using System;
 
 public class LeverTrigger : MonoBehaviour
 {
     private bool useLever = false;
+    private bool playerInRange = false;
     public GameObject[] targetObject;
-    private float duration = 10f;
+    private float duration = 1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,7 +18,10 @@ public class LeverTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space) && !useLever && playerInRange) {
+            useLever = true;
+            StartCoroutine(Timed());
+        }
 
     }
 
@@ -26,19 +31,24 @@ public class LeverTrigger : MonoBehaviour
         DoorClose();
         useLever = false;
     }
-
-        private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Trigger" && Input.GetKeyDown(KeyCode.Space) && !useLever) {
-            useLever = true;
-            StartCoroutine(Timed());
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            playerInRange = true;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            playerInRange = false;
+        }
+    }
+
 
     private void DoorOpen() {
         foreach (GameObject door in targetObject) {
             if (door != null) {
                 // Assuming the doors have a script to handle opening
-                door.GetComponent<Door>().Open();
+                door.GetComponent<DoorControl>().Open();
             }
         }
     }
@@ -47,7 +57,7 @@ public class LeverTrigger : MonoBehaviour
         foreach (GameObject door in targetObject) {
             if (door != null) {
                 // Assuming the doors have a script to handle closing
-                door.GetComponent<Door>().Close();
+                door.GetComponent<DoorControl>().Close();
             }
         }
     }
