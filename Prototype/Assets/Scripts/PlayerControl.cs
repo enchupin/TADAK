@@ -10,6 +10,7 @@ public class PlayerControl : MonoBehaviour {
     private float speed; // 최종 이동속도
     float targetSpeed; // 이동속도 계산
     float maxWalkSpeed = 5.0f; // 이동속도 계산 (속도 바꾸려면 이거 초기화 값 수정)
+    float lerpSpeed = 15.0f;
     private float jumpForce = 5; // 점프력
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,7 +31,7 @@ public class PlayerControl : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftArrow)) key = -1;
 
         targetSpeed = key * maxWalkSpeed;
-        speed = Mathf.Lerp(this.rb.linearVelocity.x, targetSpeed, Time.deltaTime * 15);
+        speed = Mathf.Lerp(this.rb.linearVelocity.x, targetSpeed, Time.deltaTime * lerpSpeed);
         this.rb.linearVelocity = new Vector2(speed, this.rb.linearVelocity.y);
 
         // 움직이는 방향에 따라 플레이어 모습 반전 (애셋 적용되면 주석 풀어서 적용하기)
