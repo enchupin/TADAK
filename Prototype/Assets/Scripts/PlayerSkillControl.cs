@@ -1,17 +1,25 @@
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using System.Collections.Generic;
+
+public class SkillInfo {
+    public float cooldown;
+    public float duration;
+    public bool isReady = true;
+}
+
+public static class SkillDatabase {
+    public static Dictionary<string, SkillInfo> skills = new Dictionary<string, SkillInfo>() {
+        { "shockwave", new SkillInfo { cooldown = 1f, duration = 0.5f } },
+        { "activateShield", new SkillInfo { cooldown = 1f, duration = 0.5f } },
+    };
+}
 
 public class PlayerSkillControl : MonoBehaviour
 {
     public GameObject pre_Shockwave;
-    
-    private float speed = 15f; // ºÓ≈©ø˛¿Ã∫Í ≈ıªÁ√º º”µµ
-    private float shockwaveDuration = 0.5f; // ºÓ≈©ø˛¿Ã∫Í ¡ˆº”Ω√∞£
-    private float shockwaveCooldown = 1f; // ºÓ≈©ø˛¿Ã∫Í ƒ≈∏¿”
-    private bool shockwaveIsReady = true;
-
-
+    private float speed = 15f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,25 +45,36 @@ public class PlayerSkillControl : MonoBehaviour
 
 
     void Shockwave() {
-        if (shockwaveIsReady) {
-            StartCoroutine(CastSkill());
+        if (SkillDatabase.skills["shockwave"].isReady) {
+            StartCoroutine(CastSkill("shockwave"));
             GameObject shockwave = Instantiate(pre_Shockwave, this.transform.position, Quaternion.identity);
-            StartCoroutine(MoveAndDestroy(shockwave));
+            StartCoroutine(ShockwaveOperation(shockwave));
 
         }
     }
-    
-    IEnumerator CastSkill() {
-        shockwaveIsReady = false;
-        yield return new WaitForSeconds(shockwaveCooldown);
-        shockwaveIsReady = true;
+
+
+    void ActivateShield() {
+        if (SkillDatabase.skills["activateShield"].isReady) {
+            StartCoroutine(CastSkill("activateShield"));
+
+
+
+        }
     }
 
-    IEnumerator MoveAndDestroy(GameObject obj) {
-        float elapsed = 0f;
-        Vector3 dir = this.transform.right; // «√∑π¿ÃæÓ¿« πŸ∂Û∫∏¥¬ πÊ«‚, ºˆ¡§ « ø‰
+    IEnumerator CastSkill(string skillName) {
+        var skill = SkillDatabase.skills[skillName];
+        skill.isReady = false;
+        yield return new WaitForSeconds(skill.cooldown);
+        skill.isReady = true;
+    }
 
-        while (elapsed < shockwaveDuration) {
+    IEnumerator ShockwaveOperation(GameObject obj) {
+        float elapsed = 0f;
+        Vector3 dir = this.transform.right; // ÌîåÎ†àÏù¥Ïñ¥Í∞Ä Î∞îÎùºÎ≥¥Îäî Î∞©Ìñ•, ÏàòÏ†ï ÌïÑÏöî
+
+        while (elapsed < SkillDatabase.skills["shockwave"].duration) {
             obj.transform.position += dir * speed * Time.deltaTime;
             elapsed += Time.deltaTime;
             yield return null;
@@ -64,11 +83,5 @@ public class PlayerSkillControl : MonoBehaviour
         Destroy(obj);
     }
 
-    void ActivateShield() {
-
-    }
-
 
 }
-
-
