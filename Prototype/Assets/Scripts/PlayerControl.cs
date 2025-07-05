@@ -33,14 +33,13 @@ public class PlayerControl : MonoBehaviour {
         speed = horizontalKey * maxWalkSpeed;
         this.rb.linearVelocity = new Vector2(speed, this.rb.linearVelocity.y);
 
-        // 움직이는 방향에 따라 플레이어 모습 반전 (애셋 적용되면 주석 풀어서 적용하기)
-        
-        /*
-        if (Mathf.Round(horizontalKey) != 0)
+        // 움직이는 방향에 따라 플레이어 모습 반전
+        if (Mathf.Abs(horizontalKey) > 0.01f)
         {
-            transform.localScale = new Vector3(Mathf.Ceil(horizontalKey), 1, 1);
+            Vector3 scale = transform.localScale;
+            scale.x = horizontalKey > 0 ? 1 : -1;
+            transform.localScale = scale;
         }
-        */
     }
 
     void PlayerJump() {
