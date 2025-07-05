@@ -3,8 +3,9 @@ using System.Collections;
 
 public class DoorControl : MonoBehaviour
 {
-    private float switchingTime = 1f;
+    private float switchingTime = 5f; // 문 여는데 걸리는 시간
     private Vector3 initPosition;
+    private Vector3 endPosition;
     private float lerpValue = 0;
     private bool openingNow = false;
     private bool closingNow = false;
@@ -12,35 +13,52 @@ public class DoorControl : MonoBehaviour
     void Start()
     {
         initPosition = this.transform.position;
+        endPosition = initPosition + new Vector3(0, -3f, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (openingNow || closingNow) {
-            lerpValue += Time.deltaTime;
-        }
-        if (lerpValue >= 1) {
-            lerpValue = 0;
+        if (openingNow) {
+            lerpValue += Time.deltaTime / switchingTime;
+            this.transform.position = Vector3.Lerp(initPosition, endPosition, lerpValue);
+
+            if (lerpValue >= 1f) {
+                transform.position = endPosition;
+                openingNow = false;
+                lerpValue = 0f;
+            }
         }
 
+        else if (closingNow) {
+            lerpValue += Time.deltaTime / switchingTime;
+            this.transform.position = Vector3.Lerp(endPosition, initPosition, lerpValue);
+
+            if (lerpValue >= 1f) {
+                transform.position = initPosition;
+                closingNow = false;
+                lerpValue = 0f;
+            }
+        }
+
+
+
+
     }
-    IEnumerator openTimed() {
-        yield return new WaitForSeconds(switchingTime);
-        openingNow = false;
-    }
-    IEnumerator closeTimed() {
-        yield return new WaitForSeconds(switchingTime);
-        closingNow = false;
-    }
+
+
+
+
     public void Open() {
-        openingNow = true;
-        this.transform.position = Vector3.Lerp(initPosition, initPosition + new Vector3(0, -1, 0), lerpValue);
-        StartCoroutine(openTimed());
+        if (!(openingNow || closingNow)) {
+            openingNow = true;
+            lerpValue = 0f;
+        }
     }
     public void Close() {
-        openingNow = false;
-        this.transform.position = Vector3.Lerp(initPosition + new Vector3(0, -1, 0), initPosition, lerpValue);
-        StartCoroutine(closeTimed());
+        if (!(openingNow || closingNow)) {
+            closingNow = true;
+            lerpValue = 0f;
+        }
     }
 }

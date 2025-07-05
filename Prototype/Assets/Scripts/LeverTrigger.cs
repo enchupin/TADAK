@@ -8,7 +8,8 @@ public class LeverTrigger : MonoBehaviour
     private bool useLever = false;
     private bool playerInRange = false;
     public GameObject[] targetObject;
-    private float duration = 1f;
+    private float duration = 6f;
+    private float cooldown = 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,6 +30,7 @@ public class LeverTrigger : MonoBehaviour
         DoorOpen();
         yield return new WaitForSeconds(duration);
         DoorClose();
+        yield return new WaitForSeconds(duration);
         useLever = false;
     }
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -47,7 +49,6 @@ public class LeverTrigger : MonoBehaviour
     private void DoorOpen() {
         foreach (GameObject door in targetObject) {
             if (door != null) {
-                // Assuming the doors have a script to handle opening
                 door.GetComponent<DoorControl>().Open();
             }
         }
@@ -56,7 +57,6 @@ public class LeverTrigger : MonoBehaviour
     private void DoorClose() {
         foreach (GameObject door in targetObject) {
             if (door != null) {
-                // Assuming the doors have a script to handle closing
                 door.GetComponent<DoorControl>().Close();
             }
         }

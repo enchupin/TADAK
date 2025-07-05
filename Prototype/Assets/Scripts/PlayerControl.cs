@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Net;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
@@ -9,8 +10,9 @@ public class PlayerControl : MonoBehaviour {
 
     private float speed; // 최종 이동속도
     private float maxWalkSpeed = 5.0f; // 이동속도 계산 (속도 바꾸려면 이거 초기화 값 수정)
-    private float jumpForce = 5.0f; // 점프력
+    private float jumpForce = 6.0f; // 점프력
     private float horizontalKey;
+    public int gravityMode = 0; // 중력의 작용 방향 0 = 아래, 1 = 위, 2 = 좌측, 3 = 우측
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
@@ -21,6 +23,7 @@ public class PlayerControl : MonoBehaviour {
     void Update() {
         PlayerMove();
         PlayerJump();
+        GravityControl();
     }
 
     void PlayerMove()
@@ -42,10 +45,42 @@ public class PlayerControl : MonoBehaviour {
 
     void PlayerJump() {
         if (Input.GetKeyDown(KeyCode.LeftAlt) && isGrounded) {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            switch (gravityMode) {
+                case 0:
+                    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                    break;
+                case 1:
+                    rb.AddForce(Vector2.down * jumpForce, ForceMode2D.Impulse);
+                    break;
+                case 2:
+                    rb.AddForce(Vector2.right * jumpForce, ForceMode2D.Impulse);
+                    break;
+                case 3:
+                    rb.AddForce(Vector2.left * jumpForce, ForceMode2D.Impulse);
+                    break;
+            }
             isGrounded = false;
         }
     }
+
+    void GravityControl() {
+        switch (gravityMode) {
+            case 0:
+                Physics2D.gravity = new Vector2(0, -9.8f);
+                break;
+            case 1:
+                Physics2D.gravity = new Vector2(0, 9.8f);
+                break;
+            case 2:
+                Physics2D.gravity = new Vector2(-9.8f, 0);
+                break;
+            case 3:
+                Physics2D.gravity = new Vector2(9.8f, 0);
+                break;
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ground") {
             isGrounded = true;
