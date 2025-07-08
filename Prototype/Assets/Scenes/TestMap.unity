@@ -1185,6 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915b918daae0d2f4dae8e86dabaa5577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWindForce: 6
 --- !u!61 &1210743167
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1907,6 +1908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityMode: 0
+  canMoveState: 1
 --- !u!61 &1860405356
 BoxCollider2D:
   m_ObjectHideFlags: 0
