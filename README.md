@@ -3,11 +3,15 @@
 
 
 ## :family: Team Member
-|이름|학교|역할|
-|---|---|---|
-|김두현|상명대학교|FullStack|
-|김진욱|광운대학교|FrontEnd|
-|박지홍|중앙대학교|GameDesign|
+|이름|역할|
+|---|---|
+|김두현|FullStack|
+|김진욱|FrontEnd|
+|이수정|Art/Design|
+|우주현|Art/Design|
+|김선율|Sound/SFX|
+|김준|GameDesign|
+|박지홍|GameDesign|
 
 
 
