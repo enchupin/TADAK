@@ -1,32 +1,60 @@
-# TADAK
+# 🎮 프로젝트명: [TADAK Project]
 
+> [성공하지 않아도 괜찮아. 내가 옆에 있으니까.]
 
+---
 
-## :family: Team Member
+## 📌 목차
+
+- [게임 개요](#게임-개요)
+- [기술 스택](#기술-스택)
+- [설치 및 실행 방법](#설치-및-실행-방법)
+- [팀원 소개](#팀원-소개)
+- [스크린샷](#스크린샷)
+- [향후 계획](#향후-계획)
+- [라이선스](#라이선스)
+
+---
+
+## 🕹️ 게임 개요
+
+- **장르**: 2D 플랫포머 X 힐링
+- **플랫폼**: PC
+- **엔진**: Unity
+- **게임 설명**:  
+  (추후 작성) 
+
+---
+
+## 💻 기술 스택
+
+| 기술 | 설명 |
+|------|------|
+| Unity | 게임 개발 엔진 |
+| C# | 게임 로직 구현 |
+
+---
+
+## 👥 팀원 소개
 |이름|역할|
-|---|---|
-|김두현|FullStack|
-|김진욱|FrontEnd|
-|이수정|Art/Design|
-|우주현|Art/Design|
-|김선율|Sound/SFX|
-|김준|GameDesign|
-|박지홍|GameDesign|
+|------|------|
+|김준|기획|
+|박지홍|기획|
+|김두현|프로그래밍|
+|김진욱|프로그래밍|
+|우주현|아트 & 디자인|
+|이수정|아트 & 디자인|
+|김선율|사운드|
 
+---
 
+## 🖼️ 스크린샷
 
-## :wrench: Tech
-<h3 align="center"><b>📚 Languages 📚</b></h3>
-</br>
-<p align="center">
-<img src="https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white"/>
-</p>
-</br>
+---
 
+## 📈 향후 계획
 
+---
 
-<h3 align="center"><b>🎮 Gaming 🎮</b></h3>
-</br>
-<p align="center">
-<img src="https://img.shields.io/badge/unity-%23000000.svg?style=for-the-badge&logo=unity&logoColor=white"/>
-</p>
+## 📄 라이선스
+이 프로젝트는 MIT 라이선스를 따릅니다. 자세한 내용은 LICENSE 파일을 확인하세요.
