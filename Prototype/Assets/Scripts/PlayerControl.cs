@@ -26,20 +26,55 @@ public class PlayerControl : MonoBehaviour {
         GravityControl();
     }
 
+    private Vector2 slopeNormal = Vector2.up;
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //if (collision.gameObject.CompareTag("Ground"))
+        //{
+        //    foreach (ContactPoint2D contact in collision.contacts)
+        //    {
+        //        slopeNormal = contact.normal;
+        //        break;
+        //    }
+        //}
+        foreach (ContactPoint2D contact in collision.contacts)
+        {
+            slopeNormal = contact.normal;
+            break;
+        }
+    }
+
     void PlayerMove()
     {
         horizontalKey = Input.GetAxis("Horizontal");
-        
-        speed = horizontalKey * maxWalkSpeed;
-        this.rb.linearVelocity = new Vector2(speed, this.rb.linearVelocity.y);
 
-        // 움직이는 방향에 따라 플레이어 모습 반전
         if (Mathf.Abs(horizontalKey) > 0.01f)
         {
+            // 직접 조작
+            speed = horizontalKey * maxWalkSpeed;
+
             Vector3 scale = transform.localScale;
             scale.x = horizontalKey > 0 ? 1 : -1;
             transform.localScale = scale;
         }
+        else
+        {
+            if (slopeNormal != Vector2.up)
+            {
+                Vector2 slopeTangent = new Vector2(slopeNormal.y, -slopeNormal.x).normalized;
+
+                float slideAmount = Vector2.Dot(Physics2D.gravity.normalized, slopeTangent);
+
+                speed = slideAmount * 5f;  // 슬라이드 속도 (계수는 실험적으로 조정)
+            }
+            else if (slopeNormal == Vector2.up)
+            {
+                speed = 0;
+            }
+        }
+        
+        this.rb.linearVelocity = new Vector2(speed, this.rb.linearVelocity.y);
     }
 
     void PlayerJump() {
@@ -79,12 +114,11 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Ground") {
             isGrounded = true;
         }
     }
 
-
+    
 }
