@@ -14,6 +14,8 @@ public class PlayerControl : MonoBehaviour {
     private float horizontalKey;
     public int gravityMode = 0; // 중력의 작용 방향 0 = 아래, 1 = 위, 2 = 좌측, 3 = 우측
 
+    public bool canMoveState = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -21,8 +23,11 @@ public class PlayerControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        PlayerMove();
-        PlayerJump();
+
+        if (canMoveState) {
+            PlayerMove();
+            PlayerJump();
+        }
         GravityControl();
     }
 

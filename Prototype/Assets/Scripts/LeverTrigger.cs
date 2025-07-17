@@ -9,7 +9,6 @@ public class LeverTrigger : MonoBehaviour
     private bool playerInRange = false;
     public GameObject[] targetObject;
     private float duration = 6f;
-    private float cooldown = 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
