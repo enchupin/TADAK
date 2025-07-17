@@ -66,7 +66,7 @@ public class PlayerControl : MonoBehaviour {
 
                 float slideAmount = Vector2.Dot(Physics2D.gravity.normalized, slopeTangent);
 
-                speed = slideAmount * 5f;  // 슬라이드 속도 (계수는 실험적으로 조정)
+                speed = slideAmount * 5f;  // 슬라이드 속도
             }
             else if (slopeNormal == Vector2.up)
             {
