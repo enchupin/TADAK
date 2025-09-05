@@ -18,6 +18,8 @@ public class PlayerControl : MonoBehaviour {
     public float maxSlopeAngle = 30f;
     public float groundFriction = 15f; // Áö¸é ¸¶Âû·Â
 
+    public bool canMoveState = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -25,8 +27,11 @@ public class PlayerControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        PlayerMove();
-        PlayerJump();
+
+        if (canMoveState) {
+            PlayerMove();
+            PlayerJump();
+        }
         GravityControl();
     }
 
