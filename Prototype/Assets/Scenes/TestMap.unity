@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 422811383}
   m_Layer: 0
   m_Name: test_tri
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2060,7 +2060,7 @@ BoxCollider2D:
   m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c3ec6b3606ae9d34a9d52bc98ee745f4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -61,15 +61,13 @@ public class PlayerControl : MonoBehaviour {
         {
             if (isGrounded)
             {
-                float slopeAngle = Vector2.Angle(slopeNormal, Vector2.up);
-
                 if (slopeNormal != Vector2.up)
                 {
                     Vector2 slideDirection = new Vector2(slopeNormal.y, -slopeNormal.x).normalized;
 
                     float slideAmount = Vector2.Dot(Physics2D.gravity.normalized, slideDirection);
 
-                    speed = slideAmount * 5f;  // 슬라이드 속도
+                    speed = slideAmount * 10f;  // 슬라이드 속도
 
                     float finalSlideSpeed = speed;
 
@@ -82,21 +80,6 @@ public class PlayerControl : MonoBehaviour {
 
                     rb.linearVelocity = frictionVelocity;
                 }
-                //if (slopeAngle > maxSlopeAngle) // 미끄러져야 할 경사면이라면
-                //{
-                //    // 미끄러짐 로직 (이전과 동일)
-                //    Vector2 slideDirection = new Vector2(slopeNormal.y, -slopeNormal.x).normalized;
-                //    float slideAmount = Vector2.Dot(Physics2D.gravity.normalized, slideDirection);
-                //    float finalSlideSpeed = maxSlideSpeed * slideAmount;
-                //    rb.linearVelocity = slideDirection * finalSlideSpeed;
-                //}
-                //else // 서 있을 수 있는 평지 또는 완만한 경사면이라면
-                //{
-                //    // 멈춤 로직 (이전과 동일)
-                //    Vector2 frictionVelocity = rb.linearVelocity;
-                //    frictionVelocity.x = Mathf.MoveTowards(rb.linearVelocity.x, 0f, groundFriction * Time.deltaTime);
-                //    rb.linearVelocity = frictionVelocity;
-                //}
             }
             else
             {
