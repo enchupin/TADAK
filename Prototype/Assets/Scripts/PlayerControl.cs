@@ -20,6 +20,8 @@ public class PlayerControl : MonoBehaviour {
 
     public bool canMoveState = true;
     public bool isMoveState = false;
+    private bool isOnFloatingGround = false;
+    private Collider2D currentFloatingPlatform;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,6 +35,7 @@ public class PlayerControl : MonoBehaviour {
         if (canMoveState) {
             PlayerMove();
             PlayerJump();
+            DownWardJump();
         }
         GravityControl();
     }
@@ -46,6 +49,13 @@ public class PlayerControl : MonoBehaviour {
             slopeNormal = contact.normal;
             // Debug.Log("�ٴ��� ���� ���� : " + slopeNormal.x + " , " + slopeNormal.y);
             break;
+        }
+    }
+
+    void DownWardJump()
+    {
+        if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.LeftAlt) && isOnFloatingGround) {
+            StartCoroutine(DropDown(currentFloatingPlatform));
         }
     }
 
@@ -140,5 +150,30 @@ public class PlayerControl : MonoBehaviour {
         if (collision.gameObject.tag == "Ground") {
             isGrounded = true;
         }
+        if (collision.gameObject.tag == "FloatingGround") {
+            isGrounded = true;
+            isOnFloatingGround = true;
+            currentFloatingPlatform = collision.gameObject.GetComponent<Collider2D>();
+        }
     }
+
+    private void OnCollisionExit2D(Collision2D collision) {
+        if (collision.gameObject.tag == "FloatingGround") {
+            isOnFloatingGround = false;
+            currentFloatingPlatform = null;
+        }
+    }
+
+
+    IEnumerator DropDown(Collider2D platform) {
+        Collider2D playerCollider = GetComponent<Collider2D>();
+
+        Physics2D.IgnoreCollision(playerCollider, platform, true); // ignore player collision
+
+        yield return new WaitForSeconds(0.4f);
+
+        Physics2D.IgnoreCollision(playerCollider, platform, false);
+    }
+
+
 }

@@ -8,6 +8,7 @@ TagManager:
   - BreakWallAttack
   - Lever
   - Breakable
+  - FloatingGround
   layers:
   - Default
   - TransparentFX
