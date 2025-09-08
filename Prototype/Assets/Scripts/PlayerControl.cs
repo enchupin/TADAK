@@ -9,16 +9,18 @@ public class PlayerControl : MonoBehaviour {
     private Rigidbody2D rb;
     private bool isGrounded = false;
 
-    private float speed; // ÃÖÁ¾ ÀÌµ¿¼Óµµ
-    private float maxWalkSpeed = 5.0f; // ÀÌµ¿¼Óµµ °è»ê (¼Óµµ ¹Ù²Ù·Á¸é ÀÌ°Å ÃÊ±âÈ­ °ª ¼öÁ¤)
-    private float jumpForce = 6.0f; // Á¡ÇÁ·Â
+    private float speed; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Óµï¿½
+    private float maxWalkSpeed = 5.0f; // ï¿½Ìµï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ (ï¿½Óµï¿½ ï¿½Ù²Ù·ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    private float jumpForce = 6.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private float horizontalKey;
-    public int gravityMode = 0; // Áß·ÂÀÇ ÀÛ¿ë ¹æÇâ 0 = ¾Æ·¡, 1 = À§, 2 = ÁÂÃø, 3 = ¿ìÃø
+    public int gravityMode = 0; // ï¿½ß·ï¿½ï¿½ï¿½ ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ 0 = ï¿½Æ·ï¿½, 1 = ï¿½ï¿½, 2 = ï¿½ï¿½ï¿½ï¿½, 3 = ï¿½ï¿½ï¿½ï¿½
     public float maxSlideSpeed = 100f;
     public float maxSlopeAngle = 30f;
-    public float groundFriction = 15f; // Áö¸é ¸¶Âû·Â
+    public float groundFriction = 15f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public bool canMoveState = true;
+    public bool isMoveState = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
@@ -42,7 +44,7 @@ public class PlayerControl : MonoBehaviour {
         foreach (ContactPoint2D contact in collision.contacts)
         {
             slopeNormal = contact.normal;
-            // Debug.Log("¹Ù´ÚÀÇ ¼öÁ÷ º¤ÅÍ : " + slopeNormal.x + " , " + slopeNormal.y);
+            // Debug.Log("ï¿½Ù´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : " + slopeNormal.x + " , " + slopeNormal.y);
             break;
         }
     }
@@ -53,7 +55,8 @@ public class PlayerControl : MonoBehaviour {
 
         if (Mathf.Abs(horizontalKey) > 0.01f)
         {
-            // Á÷Á¢ Á¶ÀÛ
+            isMoveState = true;
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             speed = horizontalKey * maxWalkSpeed;
 
             Vector3 scale = transform.localScale;
@@ -64,6 +67,7 @@ public class PlayerControl : MonoBehaviour {
         }
         else
         {
+            isMoveState = false;
             if (isGrounded)
             {
                 if (slopeNormal != Vector2.up)
@@ -72,7 +76,7 @@ public class PlayerControl : MonoBehaviour {
 
                     float slideAmount = Vector2.Dot(Physics2D.gravity.normalized, slideDirection);
 
-                    speed = slideAmount * 10f;  // ½½¶óÀÌµå ¼Óµµ
+                    speed = slideAmount * 10f;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Óµï¿½
 
                     float finalSlideSpeed = speed;
 
